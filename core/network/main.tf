@@ -9,6 +9,10 @@ provider "aws" {
   version = "~> 1.20"
 }
 
+terraform {
+  # The configuration for this backend will be filled in by Terragrunt
+  backend "s3" {}
+}
 
 variable "cidr_block" {}
 
