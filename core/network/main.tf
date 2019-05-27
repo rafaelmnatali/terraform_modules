@@ -4,10 +4,11 @@ terraform {
   backend "s3" {}
 }
 
-variable "aws_region" {}
+variable "env" {}
+variable "default_aws_region" {}
 
 provider "aws" {
-  region  = "${var.aws_region}"
+  region  = "${var.default_aws_region}"
   version = "~> 1.20"
 }
 
@@ -17,8 +18,8 @@ resource "aws_vpc" "selected" {
   cidr_block  = "${var.cidr_block}"
 
   tags {
-    Name = "vpc-${terraform.workspace}"
+    Name = "vpc-${var.env}"
     Provider  = "Terraform"
-    Workspace = "${terraform.workspace}"
+    Environment = "${var.env}"
   }
 }
